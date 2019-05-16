@@ -39,18 +39,16 @@ base:
 jwt:
   id: myMpJwt
 
-cloudant:
-  user: admin
-  password: pass
+couchdb:
+  host: customer-couchdb-svc-couchdb
   protocol: http
-  host: localhost
-  type: NodePort
-  port: 80
-  nodeport: 31222
+  port: 5985
+  existingSecret:
+  adminUsername: user
+  adminPassword: passw0rd
   database: customers
-  #image: registry.csplab.cloudns.cx/microprofile/populate
-  image: ibmcase/populate
-  #image: populate
+  # Used when using Istio
+  headless: customer-couchdb-couchdb
 
 ## Persist data to a persistent volume
 persistence:

@@ -1,4 +1,4 @@
-from cloudant.client import Cloudant
+from cloudant.client import CouchDB
 from cloudant.error import CloudantException
 from cloudant.result import Result, ResultByKey
 from urllib.parse import urlparse
@@ -7,7 +7,7 @@ import sys
 host = str(sys.argv[1])
 port = str(sys.argv[2])
 
-client = Cloudant("admin", "pass", url = "http://" + host + ":" + port, connect=True)
+client = CouchDB("user", "passw0rd", url = "http://" + host + ":" + port, connect=True)
 client.connect()
 databaseName = "customers"
 
