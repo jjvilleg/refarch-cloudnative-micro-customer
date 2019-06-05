@@ -7,7 +7,7 @@ import sys
 host = str(sys.argv[1])
 port = str(sys.argv[2])
 
-client = CouchDB("user", "passw0rd", url = "http://" + host + ":" + port, connect=True)
+client = CouchDB("admin", "passw0rd", url = "http://" + host + ":" + port, connect=True)
 client.connect()
 databaseName = "customers"
 
@@ -27,7 +27,7 @@ jsonDocument = {
 jsonDocument2 = {
   "username": "user",
   "password": "pass",
-  "email": "user@address.com",
+  "email": "user@address.com", 
   "firstName": "user",
   "lastName": "userLast",
   "imageUrl": "image"

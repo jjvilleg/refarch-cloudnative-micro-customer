@@ -1,10 +1,20 @@
 package application.rest;
 
-import model.Customer;
 import application.rest.client.CloudantClientService;
+import model.Customer;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.RequestScoped;
 import java.time.temporal.ChronoUnit;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.net.URI;
+import java.net.URL;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -29,6 +39,8 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
+import com.ibm.json.java.JSONArray;
+import com.ibm.json.java.JSONObject;
 @Path("/customer")
 @RequestScoped
 @Produces("application/json")
@@ -54,7 +66,7 @@ public class CustomerService {
     @Timeout(value = 2, unit = ChronoUnit.SECONDS)
     @Retry(maxRetries = 2, maxDuration= 2000)
     @Fallback(fallbackMethod = "fallbackService")
-    //@Produces("application/json")
+    @Produces("application/json")
     @GET
     @APIResponses(value = {
         @APIResponse(
@@ -87,8 +99,16 @@ public class CustomerService {
     @Traced(value = true, operationName = "getCustByUsername")
     public javax.ws.rs.core.Response getCustomerByUsername() throws Exception{
         try {
-            String username = "usernames:" + jwt.getSubject();
-            return defaultCloudantClient.searchUsername(username, "true");
+             String username = "usernames:" + jwt.getSubject();
+             JSONObject body = new JSONObject();
+             JSONObject selector = new JSONObject();
+             selector.put("username", "foo");
+             body.put("selector", selector);
+             ArrayList<String> fieldNames = new ArrayList<String>(Arrays.asList("username", "email", "firstName", "lastName", "imageUrl"));
+             JSONArray fields = new JSONArray();
+             body.put("fields", fields);
+             body.put("limit", 1);
+             return defaultCloudantClient.getUsername(body);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -102,5 +122,4 @@ public class CustomerService {
         System.out.println();
         return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity("Cloudant Service is down.").build();
     }
-
 }
