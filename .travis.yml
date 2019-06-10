@@ -38,7 +38,7 @@ jobs:
       # Check Cloudant status
       - curl http://localhost:$couchDbPort
       # Fetch network IP: Inspect Networt | Fetch Gateway | Parse IP | Remove Quotes
-      - export GATEWAY=$(docker network inspect cloudant | grep "Gateway" | awk '/"/{print $2}' | sed -e 's/^"//' -e 's/"$//')
+      - export GATEWAY=$(docker network inspect couchdb | grep "Gateway" | awk '/"/{print $2}' | sed -e 's/^"//' -e 's/"$//')
       # Populate the DB to test user creation and searching (Will replace with a pull and run when uploaded to Dockerhub)
       - cd cloudant/
       - docker build -t populate .
