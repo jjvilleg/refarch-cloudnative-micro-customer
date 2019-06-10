@@ -48,7 +48,7 @@ public class HealthEndpoint implements HealthCheck {
 			url = new URL(cloudant_url); 
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 			if(con!=null){
-				if(con.getResponseMessage().equals("OK"))
+				if(con.getResponseMessage().contains("\"couchdb\":\"Welcome\""))
 					return true;
 				else
 					return false;
