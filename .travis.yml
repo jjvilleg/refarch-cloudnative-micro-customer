@@ -43,23 +43,10 @@ jobs:
       - cd cloudant/
       - docker build -t populate .
       - docker run populate $GATEWAY $couchDbPort
-      - cd -
       # Verify DB population
       #- curl -X POST http://localhost:5985/customers/_find -H 'Accept:*/*' -H 'Cache-Control: no-cache' -H 'Connection: keep-alive' -H 'Content-Type: application/json' -H 'Host: localhost:5985' -H 'Postman-Token: 9d2011df-3455-45c6-bd9c-f5437408fbf5,eabc1a64-f857-4e4c-96e0-8c3dcad10fea' -H 'User-Agent: PostmanRuntime/7.13.0' -H 'accept-encoding: gzip, deflate' -H 'cache-control: no-cache' -H 'content-length: 143' -d '{ "selector":{"username":"foo"},"fields":["username", "email", "firstName", "lastName", "imageUrl"],"limit":1}'
-      - curl 
-        --request POST \
-        --url http://localhost:5985/customers/_find \
-        --header 'Accept:*/*' \
-        --header 'Cache-Control:no-cache' \
-        --header 'Connection:keep-alive' \
-        --header 'Content-Type:application/json' \
-        --header 'Host:localhost:5985' \
-        --header 'Postman-Token:9d2011df-3455-45c6-bd9c-f5437408fbf5,b8ae549f-a8a1-4557-8788-3682f9e87d2a' \
-        --header 'User-Agent:PostmanRuntime/7.13.0' \
-        --header 'accept-encoding:gzip, deflate' \
-        --header 'cache-control:no-cache' \
-        --header 'content-length:143' \
-        --data '{\n    "selector":{\n        "username":"foo"\n    },\n    "fields":["username", "email", "firstName", "lastName", "imageUrl"],\n    "limit":1\n}'
+      - ./test_populate.sh
+      - cd -
       # Define a Keystore
       - bash scripts/keygen.sh
       - sudo cp -r keystorevol /etc/
