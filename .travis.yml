@@ -4,7 +4,7 @@ env:
   global:
     - zipkinHost=localhost
     - zipkinPort=9411
-    - cloudantPort=8080
+    - couchDbPort=5985
     - customerHttpPort=9084
     - customerHttpsPort=9445
     - jwtid=myMpJwt
@@ -24,28 +24,28 @@ jobs:
         - jwksIssuer=https://localhost:9443/oidc/endpoint/OP
         - host=localhost
         - port=8080
-        - application.rest.client.CloudantClientService/mp-rest/url=http://localhost:8080
+        - application.rest.client.CloudantClientService/mp-rest/url=http://localhost:5985
         - auth_health=https://localhost:9443/health
       before_script:
       # Pull the Cloudant Docker image
-      - docker pull ibmcom/cloudant-developer
+      - docker pull couchdb
       # Create a network for container communication (Populate to Cloudant)
-      - docker network create cloudant
+      - docker network create couchdb
       # Setup and run Cloudant (Volumes not supported on Travis however)
-      - docker run --detach --volume cloudant:/srv --name cloudant-developer --publish $cloudantPort:80 --hostname cloudant.dev --network cloudant ibmcom/cloudant-developer
+      - docker run --name customercouchdb -p 5985:5984 -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=passw0rd -d couchdb:2.1.2 --hostname cloudant.dev --network couchdb
       # Wait for Cloudant to Start
       - sleep 25
       # Check Cloudant status
-      - curl http://localhost:$cloudantPort
+      - curl http://localhost:$couchDbPort
       # Fetch network IP: Inspect Networt | Fetch Gateway | Parse IP | Remove Quotes
       - export GATEWAY=$(docker network inspect cloudant | grep "Gateway" | awk '/"/{print $2}' | sed -e 's/^"//' -e 's/"$//')
       # Populate the DB to test user creation and searching (Will replace with a pull and run when uploaded to Dockerhub)
       - cd cloudant/
       - docker build -t populate .
-      - docker run populate $GATEWAY $cloudantPort
+      - docker run populate $GATEWAY $couchDbPort
       - cd -
       # Verify DB population
-      - curl http://admin:pass@localhost:$cloudantPort/customers/_design/username_searchIndex/_search/usernames\?query\=usernames:user\&include_docs\=true
+      - curl -X POST http://localhost:5985/customers/_find -H 'Accept: */*' -H 'Cache-Control: no-cache' -H 'Connection: keep-alive' -H 'Content-Type: application/json' -H 'Host: localhost:5985' -H 'Postman-Token: 9d2011df-3455-45c6-bd9c-f5437408fbf5,eabc1a64-f857-4e4c-96e0-8c3dcad10fea' -H 'User-Agent: PostmanRuntime/7.13.0' H 'accept-encoding: gzip, deflate' -H 'cache-control: no-cache' -H 'content-length: 143' -d '{ "selector": {"username": "foo"},"fields": ["username", "email", "firstName", "lastName", "imageUrl"],"limit": 1}'
       # Define a Keystore
       - bash scripts/keygen.sh
       - sudo cp -r keystorevol /etc/
