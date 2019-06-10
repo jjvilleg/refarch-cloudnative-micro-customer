@@ -4,7 +4,7 @@ host=localhost
 port=5985
 
 user=admin
-password=pass
+password=passw0rd
 
 database=customers
 application.rest.client.CloudantClientService/mp-rest/url=http://localhost:5985
