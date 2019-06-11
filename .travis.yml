@@ -78,7 +78,9 @@ jobs:
       - true
       before_script:
       # Install nsenter, which is needed for minikube to work
-      - bash scripts/install_minikube_and_helm.sh
+      - curl -O https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-cloudnative-kubernetes/microprofile/utility_scripts/install_minikube_and_helm.sh
+      - chmod +x install_minikube_and_helm.sh
+      - ./install_minikube_and_helm.sh
       # Define a local Keystore
       - bash scripts/keygen.sh
       - sudo cp -r keystorevol /etc/
