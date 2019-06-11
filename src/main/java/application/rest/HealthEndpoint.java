@@ -48,7 +48,6 @@ public class HealthEndpoint implements HealthCheck {
 			url = new URL(cloudant_url); 
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 			if(con!=null){
-				System.out.println("\n\n\n:::::::::::::;" + con.getResponseMessage());
 				if(con.getResponseMessage().contains("OK"))
 					return true;
 				else

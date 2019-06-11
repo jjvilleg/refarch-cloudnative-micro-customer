@@ -59,7 +59,7 @@ function get_user {
 	ACCESS_TOKEN=$(curl -k -d "grant_type=password&client_id=bluecomputeweb&client_secret=bluecomputewebs3cret&username=user&password=password&scope=openid" https://${AUTH_HOST}:${AUTH_PORT}/oidc/endpoint/OP/token | jq '.access_token')
 	echo $ACCESS_TOKEN
 
-	CURL=$(curl -k --request GET --url https://${CUSTOMER_HOST}:${CUSTOMER_PORT}/customer/rest/customer --header "Authorization: Bearer ${ACCESS_TOKEN}" --header "Content-Type: application/json" | jq -r '.rows' | jq '.[].doc.username' | sed -e 's/^"//' -e 's/"$//')	
+	CURL=$(curl -k --request GET --url https://${CUSTOMER_HOST}:${CUSTOMER_PORT}/customer/rest/customer --header "Authorization: Bearer ${ACCESS_TOKEN}" --header "Content-Type: application/json" | jq -r '.rows' | jq '.[].docs[0].username ' | sed -e 's/^"//' -e 's/"$//')	
 	echo "Found user with name: $CURL"
 
 	# echo "Get Pods"
