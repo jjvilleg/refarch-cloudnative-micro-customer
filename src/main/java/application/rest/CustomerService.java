@@ -102,7 +102,7 @@ public class CustomerService {
              String username = "usernames:" + jwt.getSubject();
              JSONObject body = new JSONObject();
              JSONObject selector = new JSONObject();
-             selector.put("username", "foo");
+             selector.put("username", jwt.getSubject());
              body.put("selector", selector);
              ArrayList<String> fieldNames = new ArrayList<String>(Arrays.asList("username", "email", "firstName", "lastName", "imageUrl"));
              JSONArray fields = new JSONArray();
