@@ -86,13 +86,13 @@ jobs:
       - helm install --name keystore services-bc-mp/keystore
       - helm install --name auth services-bc-mp/auth
       - helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
-      - helm upgrade --install couchdb --version 0.2.2 --set fullnameOverride=customer-couchdb --set service.externalPort=5985 --set createAdminSecret=true --set adminUsername=user --set adminPassword=passw0rd --set clusterSize=1 --set persistentVolume.enabled=false services-bc-mp/couchdb
+      - helm upgrade --install couchdb --set travis=true --set service.minikubeIp=$MINIKUBE_IP --version 0.2.2 --set fullnameOverride=customer-couchdb --set service.externalPort=5985 --set createAdminSecret=true --set adminUsername=user --set adminPassword=passw0rd --set clusterSize=1 --set persistentVolume.enabled=false incubator/couchdb --name couchdb
       - MINIKUBE_IP=$(minikube ip)
       - AUTH_NODE_PORT=$(kubectl get service auth-auth -o=jsonpath='{.spec.ports[1].nodePort}')
       script:
       # Maven Build
       - mvn clean install
-      # Build Docker image
+      # Build Docker image d
       - docker build -t "${IMAGE_NAME}:${TAG}" .
       # Install Customer
       - helm install --set travis=true --set service.minikubeIp=$MINIKUBE_IP --set service.authKubePort=$AUTH_NODE_PORT --set image.repository=${IMAGE_NAME} --set image.tag=${TAG} --name ${RELEASE_NAME} ./chart/customer/
@@ -110,4 +110,4 @@ jobs:
       - sleep 35
       # Run auth API Test
       - CUST_NODE_PORT=$(kubectl get service ${RELEASE_NAME}-customer -o=jsonpath='{.spec.ports[1].nodePort}')
-      - bash scripts/api_tests.sh $MINIKUBE_IP $CUST_NODE_PORT $MINIKUBE_IP $AUTH_NODE_PORT
+      - bash scripts/api_tests.sh $MINIKUBE_IP $CUST_NODE_PORT $MINIKUBE_IP $AUTH_  NODE_PORT
