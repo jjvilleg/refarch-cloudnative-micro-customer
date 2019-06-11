@@ -85,6 +85,16 @@ jobs:
       # Run Kubernetes Job and run Auth (May not need keystore chart)
       - helm install --name keystore services-bc-mp/keystore
       - helm install --name auth services-bc-mp/auth
+      - helm upgrade --install couchdb \
+          --version 0.2.2 \
+          --set fullnameOverride=customer-couchdb \
+          --set service.externalPort=5985 \
+          --set createAdminSecret=true \
+          --set adminUsername=user \
+          --set adminPassword=passw0rd \
+          --set clusterSize=1 \
+          --set persistentVolume.enabled=false \
+          incubator/couchdb 
       - MINIKUBE_IP=$(minikube ip)
       - AUTH_NODE_PORT=$(kubectl get service auth-auth -o=jsonpath='{.spec.ports[1].nodePort}')
       script:
@@ -101,9 +111,9 @@ jobs:
       - echo $READY
       - until [ -n "$READY" ] && [ ${READY} -ge 1 ]; do READY=$(kubectl get deployments ${RELEASE_NAME}-customer -o yaml | grep "readyReplicas" | awk '{print $2}'); kubectl get deployments -o wide; echo "Waiting for customer to be ready"; sleep 10; done
       # Wait for Cloudant to be ready
-      - READY=$(kubectl get deployments ${RELEASE_NAME}-cloudant -o yaml | grep "readyReplicas" | awk '{print $2}')
+      - READY=$(kubectl get deployments couchdb -o yaml | grep "readyReplicas" | awk '{print $2}')
       - echo $READY
-      - until [ -n "$READY" ] && [ ${READY} -ge 1 ]; do READY=$(kubectl get deployments ${RELEASE_NAME}-cloudant -o yaml | grep "readyReplicas" | awk '{print $2}'); kubectl get deployments -o wide; echo "Waiting for cloudant to be ready"; sleep 10; done
+      - until [ -n "$READY" ] && [ ${READY} -ge 1 ]; do READY=$(kubectl get deployments couchdb -o yaml | grep "readyReplicas" | awk '{print $2}'); kubectl get deployments -o wide; echo "Waiting for cloudant to be ready"; sleep 10; done
       # Wait for cust deployment to start accepting connections
       - sleep 35
       # Run auth API Test
