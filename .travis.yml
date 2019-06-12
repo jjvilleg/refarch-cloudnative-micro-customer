@@ -84,6 +84,9 @@ jobs:
       - curl -O https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-cloudnative-kubernetes/microprofile/utility_scripts/install_minikube_and_helm.sh
       - chmod +x install_minikube_and_helm.sh
       - ./install_minikube_and_helm.sh
+      - helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
+      - helm repo add services-bc-mp https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-cloudnative-kubernetes/microprofile/docs/charts/services-bc-mp
+
       # Define a local Keystore
       - bash scripts/keygen.sh
       - sudo cp -r keystorevol /etc/
