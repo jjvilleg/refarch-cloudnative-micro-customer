@@ -118,4 +118,4 @@ jobs:
       - sleep 35
       # Run auth API Test
       - CUST_NODE_PORT=$(kubectl get service ${RELEASE_NAME}-customer -o=jsonpath='{.spec.ports[1].nodePort}')
-      - bash scripts/api_tests.sh $MINIKUBE_IP $CUST_NODE_PORT $MINIKUBE_IP $AUTH_  NODE_PORT
+      - bash scripts/api_tests.sh $MINIKUBE_IP $CUST_NODE_PORT $MINIKUBE_IP $AUTH_ NODE_PORT
