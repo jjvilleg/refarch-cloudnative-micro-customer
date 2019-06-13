@@ -42,9 +42,9 @@ jwt:
 couchdb:
   host: customer-couchdb-couchdb
   protocol: http
-  port: 5985
+  port: 5984
   existingSecret:
-  adminUsername: user
+  adminUsername: admin
   adminPassword: passw0rd
   database: customers
   # Used when using Istio
