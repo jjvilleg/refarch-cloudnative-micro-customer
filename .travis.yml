@@ -101,7 +101,7 @@ jobs:
       # Maven Build
       - mvn clean install
       # Build Docker image d
-      - docker build -t "${IMAGE_NAME}:${TAG}" .
+      - docker build -t customer .
       # Install Customer
       - helm install --set travis=true --set service.minikubeIp=$MINIKUBE_IP --set service.authKubePort=$AUTH_NODE_PORT --set image.repository=${IMAGE_NAME} --set image.tag=${TAG} --name ${RELEASE_NAME} ./chart/customer/
       # - helm install --set travis=true --set service.minikubeIp=$MINIKUBE_IP --set service.authKubePort=$AUTH_NODE_PORT --name ${RELEASE_NAME} ./chart/customer/

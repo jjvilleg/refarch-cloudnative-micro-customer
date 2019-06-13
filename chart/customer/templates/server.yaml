@@ -48,8 +48,8 @@ spec:
       containers:
       # Liberty Server Container
       - name: "{{ .Chart.Name }}"
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        #image: customer
+        #image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: customer
         imagePullPolicy: IfNotPresent
         readinessProbe:
           httpGet:
