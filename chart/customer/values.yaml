@@ -42,7 +42,7 @@ jwt:
 couchdb:
   host: customer-couchdb-couchdb
   protocol: http
-  port: 5984
+  port: 5985
   existingSecret:
   adminUsername: admin
   adminPassword: passw0rd
