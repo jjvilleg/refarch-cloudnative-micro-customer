@@ -40,7 +40,8 @@ jwt:
   id: myMpJwt
 
 couchdb:
-  host: customer-couchdb-couchdb
+  #host: customer-couchdb-couchdb
+  host: couchdb
   protocol: http
   port: 5985
   existingSecret:
