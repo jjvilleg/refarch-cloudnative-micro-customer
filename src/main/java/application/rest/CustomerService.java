@@ -109,8 +109,8 @@ public class CustomerService {
              JSONArray fields = new JSONArray();
              body.put("fields", fields);
              body.put("limit", 1);
-             return javax.ws.rs.core.Response.status(200).entity("Subject" + jwt.getRawToken()).build();
-             //return defaultCloudantClient.getUsername(body);
+             //return javax.ws.rs.core.Response.status(200).entity("Subject" + jwt.getRawToken()).build();
+             return defaultCloudantClient.getUsername(body);
         }
         catch (Exception e){
             e.printStackTrace();
