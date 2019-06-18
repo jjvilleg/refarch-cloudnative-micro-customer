@@ -15,7 +15,7 @@ image:
 
 service:
   name: customer
-  cloudantservicename: cloudant-service
+  cloudantservicename: customer-couchdb-svc-couchdb
   type: NodePort
   servicePort: 9080
   servicePortHttps: 9443
@@ -63,4 +63,4 @@ persistence:
   #storageClass: "-"
   accessMode: ReadWriteOnce
 
-travis: false
+travis: true

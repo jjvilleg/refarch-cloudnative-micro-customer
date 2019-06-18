@@ -26,7 +26,7 @@ jsonDocument = {
 
 jsonDocument2 = {
   "username": "user",
-  "password": "pass",
+  "password": "password",
   "email": "user@address.com", 
   "firstName": "user",
   "lastName": "userLast",
