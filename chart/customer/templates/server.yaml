@@ -86,7 +86,7 @@ spec:
             value: "https://{{ .Release.Name }}-{{ .Values.service.auth }}:9443/health"
         {{ end }}
           - name: host
-            value: "{{ .Release.Name }}-{{ .Values.service.cloudantservicename }}"
+            value: "{{ .Values.service.cloudantservicename }}"
           - name: PORT
             value: "{{ .Values.service.servicePort }}"
           - name: RELEASE_NAME
