@@ -99,15 +99,14 @@ public class CustomerService {
     @Traced(value = true, operationName = "getCustByUsername")
     public javax.ws.rs.core.Response getCustomerByUsername() throws Exception{
         try {
-             String username = "usernames:" + jwt.getSubject();
              JSONObject body = new JSONObject();
              JSONObject selector = new JSONObject();
              selector.put("username", jwt.getSubject());
              //selector.put("username", "user");
              body.put("selector", selector);
              ArrayList<String> fieldNames = new ArrayList<String>(Arrays.asList("username", "email", "firstName", "lastName", "imageUrl"));
-             JSONArray fields = new JSONArray();
-             body.put("fields", fields);
+             //JSONArray fields = new JSONArray();
+             body.put("fields", fieldNames);
              body.put("limit", 1);
              //return javax.ws.rs.core.Response.status(200).entity("Subject" + jwt.getRawToken()).build();
              return defaultCloudantClient.getUsername(body);
