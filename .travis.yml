@@ -11,7 +11,7 @@ env:
     - customerHttpPort=9084
     - customerHttpsPort=9445
     - jwtid=myMpJwt
-    - IMAGE_NAME=customer-mp
+    - IMAGE_NAME=customer
     - TAG=travis
     - RELEASE_NAME=cust
 stages:
@@ -115,7 +115,7 @@ jobs:
       - echo $READY
       - until [ -n "$READY" ] && [ ${READY} -ge 1 ]; do READY=$(kubectl get statefulsets customer-couchdb-couchdb -o yaml | grep "readyReplicas" | awk '{print $2}'); kubectl get deployments -o wide; echo "Waiting for couchdb to be ready"; sleep 10; done
       # Wait for cust deployment to start accepting connections
-      - sleep 60
+      # - sleep 60
       # Run auth API Test
       - CUST_NODE_PORT=$(kubectl get service ${RELEASE_NAME}-customer -o=jsonpath='{.spec.ports[1].nodePort}')
       - bash scripts/api_tests.sh $MINIKUBE_IP $CUST_NODE_PORT $MINIKUBE_IP $AUTH_NODE_PORT
