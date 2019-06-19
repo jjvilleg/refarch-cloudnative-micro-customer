@@ -119,6 +119,6 @@ public class CustomerService {
     @Produces("application/json")
     public javax.ws.rs.core.Response fallbackService() {
         System.out.println();
-        return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity("Cloudant Service is down.").build();
+        return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity("JWT: " + jwt.getRawToken()).build();
     }
 }
