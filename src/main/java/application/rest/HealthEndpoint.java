@@ -38,7 +38,7 @@ public class HealthEndpoint implements HealthCheck {
 		                                .build();
 		    }
 		
-		return HealthCheckResponse.named(CustomerService.class.getSimpleName()).withData("Customer Service" + cloudant_url, "UP").up().build();
+		return HealthCheckResponse.named(CustomerService.class.getSimpleName()).withData("Customer Service", "UP").up().build();
 	}
 
 	private boolean isCloudantReady() {

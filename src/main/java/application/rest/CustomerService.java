@@ -99,7 +99,6 @@ public class CustomerService {
     @Traced(value = true, operationName = "getCustByUsername")
     public javax.ws.rs.core.Response getCustomerByUsername() throws Exception{
         try {
-             String username = "usernames:" + jwt.getSubject();
              JSONObject body = new JSONObject();
              JSONObject selector = new JSONObject();
              selector.put("username", jwt.getSubject());
