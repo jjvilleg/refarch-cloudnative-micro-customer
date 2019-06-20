@@ -94,7 +94,7 @@ jobs:
       - helm install --name keystore services-bc-mp/keystore
       - helm install --name auth services-bc-mp/auth
       - helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
-      - helm upgrade --install couchdb --version 0.2.2 --se fullnameOverride=customer-couchdb --set service.externalPort=5985 --set createAdminSecret=true --set adminUsername=admin --set adminPassword=passw0rd --set clusterSize=1 --set persistentVolume.enabled=false incubator/couchdb
+      - helm upgrade --install couchdb --version 0.2.2 --set fullnameOverride=customer-couchdb --set service.externalPort=5985 --set createAdminSecret=true --set adminUsername=admin --set adminPassword=passw0rd --set clusterSize=1 --set persistentVolume.enabled=false incubator/couchdb
       - MINIKUBE_IP=$(minikube ip)
       - AUTH_NODE_PORT=$(kubectl get service auth-auth -o=jsonpath='{.spec.ports[1].nodePort}')
       script:
@@ -114,8 +114,6 @@ jobs:
       - READY=$(kubectl get statefulsets customer-couchdb-couchdb -o yaml | grep "readyReplicas" | awk '{print $2}')
       - echo $READY
       - until [ -n "$READY" ] && [ ${READY} -ge 1 ]; do READY=$(kubectl get statefulsets customer-couchdb-couchdb -o yaml | grep "readyReplicas" | awk '{print $2}'); kubectl get deployments -o wide; echo "Waiting for couchdb to be ready"; sleep 10; done
-      # Wait for cust deployment to start accepting connections
-      # - sleep 60
       # Run auth API Test
       - CUST_NODE_PORT=$(kubectl get service ${RELEASE_NAME}-customer -o=jsonpath='{.spec.ports[1].nodePort}')
       - bash scripts/api_tests.sh $MINIKUBE_IP $CUST_NODE_PORT $MINIKUBE_IP $AUTH_NODE_PORT
