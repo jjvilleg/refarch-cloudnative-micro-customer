@@ -11,8 +11,8 @@ env:
     - customerHttpPort=9084
     - customerHttpsPort=9445
     - jwtid=myMpJwt
-    - IMAGE_NAME=customer
-    - TAG=latest
+    - IMAGE_NAME=customer-mp
+    - TAG=travis
     - RELEASE_NAME=cust
 stages:
   - local build and test
