@@ -11,8 +11,8 @@ env:
     - customerHttpPort=9084
     - customerHttpsPort=9445
     - jwtid=myMpJwt
-    - IMAGE_NAME=customer-mp
-    - TAG=travis
+    - IMAGE_NAME=customer
+    - TAG=latest
     - RELEASE_NAME=cust
 stages:
   - local build and test
@@ -80,10 +80,10 @@ jobs:
       install:
       - true
       before_script:
-      # Install nsenter, which is needed for minikube to work
-      - curl -O https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-cloudnative-kubernetes/microprofile/utility_scripts/install_minikube_and_helm.sh
-      - chmod +x install_minikube_and_helm.sh
-      - ./install_minikube_and_helm.sh
+      #- curl -O https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-cloudnative-kubernetes/microprofile/utility_scripts/install_minikube_and_helm.sh
+      #- chmod +x install_minikube_and_helm.sh
+      #- ./install_minikube_and_helm.sh
+      - bash scripts/install_minikube_and_helm.sh
       - helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
       - helm repo add services-bc-mp https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-cloudnative-kubernetes/microprofile/docs/charts/services-bc-mp
 
