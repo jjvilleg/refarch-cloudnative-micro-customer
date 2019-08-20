@@ -78,7 +78,7 @@ global:
     name: customer-gateway
 
 istio:
-  enabled: false
+  enabled: true
   # ISTIO_MUTUAL, SIMPLE, DISABLE
   # mTLS: ISTIO_MUTUAL
   mTLS: SIMPLE
