@@ -98,7 +98,7 @@ jobs:
       - docker build -t populate . # <-- Temporary solution until populate image is updated. Or maybe we keep.
       - cd -
       # Install Customer <-- Reminder to update the load_data.yaml to point to agreed populate image later
-      - helm install --set travis=true --set service.minikubeIp=$MINIKUBE_IP --set service.authKubePort=$AUTH_NODE_PORT --set image.repository=$IMAGE_NAME --set image.tag=$IMAGE_TAG --name $RELEASE_NAME ./chart/customer/
+      - helm install --set travis=true --set service.minikubeIp=$MINIKUBE_IP --set service.authKubePort=$AUTH_NODE_PORT --set image.repository=$IMAGE_NAME --set image.tag=$IMAGE_TAG --name $RELEASE_NAME-customer ./chart/customer/
       # Wait for Customer to be ready
       - kubectl get deployments ${RELEASE_NAME}-customer -o yaml
       - READY=$(kubectl get deployments ${RELEASE_NAME}-customer -o yaml | grep "readyReplicas" | awk '{print $2}')
