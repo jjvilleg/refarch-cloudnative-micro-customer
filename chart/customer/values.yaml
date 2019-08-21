@@ -45,7 +45,7 @@ couchdb:
   adminUsername: admin
   adminPassword: passw0rd
   database: customers
-  port: 5985
+  port: 5984
   # Used when using Istio
   # headless: customer-couchdb-couchdb
   # service:
