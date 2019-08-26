@@ -46,6 +46,11 @@ couchdb:
   adminPassword: passw0rd
   database: customers
   port: 5984
+  service:
+    externalPort: 5984
+    type: NodePort
+    annotations:
+      sidecar.istio.io/inject: "false"
   # Used when using Istio
   # headless: customer-couchdb-couchdb
   # service:
