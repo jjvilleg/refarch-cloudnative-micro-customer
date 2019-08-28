@@ -40,7 +40,7 @@ jwt:
 
 couchdb:
   clusterSize: 1
-  fullnameOverride: customer-couchdb
+  fullnameOverride: customer
   host: customer-svc-couchdb
   adminUsername: admin
   adminPassword: passw0rd

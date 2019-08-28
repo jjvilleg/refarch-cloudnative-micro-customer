@@ -1,4 +1,0 @@
-# dependencies:
-#   - name: couchdb
-#     version: 0.2.2
-#     repository: http://storage.googleapis.com/kubernetes-charts-incubator
