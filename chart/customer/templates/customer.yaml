@@ -3,9 +3,7 @@ kind: Service
 metadata:
   name: "{{ .Release.Name }}-{{ .Values.service.name }}"
   labels:
-    chart: "{{ .Release.Name }}-{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-    release: {{ .Release.Name }}
-    implementation: microprofile
+    {{- include "customer.labels" . | indent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -27,24 +25,13 @@ kind: Deployment
 metadata:
   name: "{{ .Release.Name }}-{{ .Values.service.name }}"
   labels:
-    app: bluecompute
-    micro: customer
-    service: server
-    tier: backend
-    release: {{ .Release.Name }}
-    implementation: microprofile
-    chart: '{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}'
+    {{- include "customer.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
-        app: bluecompute
-        micro: customer
-        service: server
-        tier: backend
-        release: {{ .Release.Name }}
-        implementation: microprofile
+        {{- include "customer.labels" . | indent 8 }}
 
     spec:
       containers:
