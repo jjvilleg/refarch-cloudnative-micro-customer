@@ -12,11 +12,7 @@ spec:
   - name: https
     port: {{ .Values.service.servicePortHttps }}
   selector:
-    app: bluecompute
-    micro: customer
-    service: server
-    release: {{ .Release.Name }}
-    implementation: microprofile
+    {{- include "customer.labels" . | indent 4 }}
 
 ---
 

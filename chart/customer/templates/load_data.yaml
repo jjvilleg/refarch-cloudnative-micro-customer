@@ -4,9 +4,9 @@ metadata:
   name: "{{ .Release.Name }}-populate"
 spec:
   template:
+    metadata:
       annotations:
         sidecar.istio.io/inject: "false"
-  template:
     spec:
       containers:
       - name: populate
