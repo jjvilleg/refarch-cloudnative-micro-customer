@@ -38,7 +38,7 @@ spec:
         imagePullPolicy: IfNotPresent
         readinessProbe:
           httpGet:
-            path: /
+            path: /health
             port: 9443
             scheme: HTTPS
           initialDelaySeconds: 60
@@ -46,7 +46,7 @@ spec:
           failureThreshold: 6
         livenessProbe:
           httpGet:
-            path: /health
+            path: /
             port: 9443
             scheme: HTTPS
           initialDelaySeconds: 600
