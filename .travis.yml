@@ -80,9 +80,6 @@ jobs:
       # Run Kubernetes Job and run Auth (May not need keystore chart)
       - helm install --name keystore services-bc-mp/keystore
       - helm install --name auth services-bc-mp/auth
-      # - helm upgrade --install couchdb --version 0.2.2 --set fullnameOverride=customer --set service.externalPort=5984 --set createAdminSecret=true --set adminUsername=admin --set adminPassword=passw0rd --set clusterSize=1 --set persistentVolume.enabled=false incubator/couchdb
-      # - sleep 25
-      # Wait for CouchDB to be ready
       - MINIKUBE_IP=$(minikube ip)
       - AUTH_NODE_PORT=$(kubectl get service auth-auth -o=jsonpath='{.spec.ports[1].nodePort}')
       # Define a Keystore
