@@ -67,7 +67,7 @@ jobs:
       - CHANGE_MINIKUBE_NONE_USER=true
       - RELEASE_NAME=cust
       - IMAGE_NAME=customer
-      - IMAGE_TAG=travis
+      - IMAGE_TAG=latest
       install:
       - true
       before_script:
