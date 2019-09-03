@@ -49,8 +49,7 @@ spec:
             path: /
             port: 9443
             scheme: HTTPS
-          initialDelaySeconds: 600
-          timeoutSeconds: 500
+          initialDelaySeconds: 60
           periodSeconds: 10
           failureThreshold: 6
         env:
