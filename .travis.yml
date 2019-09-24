@@ -79,7 +79,7 @@ jobs:
       - helm repo add services-bc-mp https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-cloudnative-kubernetes/microprofile/docs/charts/services-bc-mp
       # Run Kubernetes Job and run Auth (May not need keystore chart)
       - helm install --name keystore services-bc-mp/keystore
-      - helm install --name auth services-bc-mp/auth
+      - helm install --name auth bc-auth/auth
       - MINIKUBE_IP=$(minikube ip)
       - AUTH_NODE_PORT=$(kubectl get service auth-auth -o=jsonpath='{.spec.ports[1].nodePort}')
       # Define a Keystore
