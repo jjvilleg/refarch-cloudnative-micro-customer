@@ -77,6 +77,7 @@ jobs:
       # Add helm repos
       - helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
       - helm repo add services-bc-mp https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-cloudnative-kubernetes/microprofile/docs/charts/services-bc-mp
+      - helm repo add bc-auth https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-cloudnative-auth/microprofile/chart/release
       # Run Kubernetes Job and run Auth (May not need keystore chart)
       - helm install --name keystore services-bc-mp/keystore
       - helm install --name auth bc-auth/auth
