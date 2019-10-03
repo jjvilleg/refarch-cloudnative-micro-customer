@@ -24,11 +24,12 @@ metadata:
     {{- include "customer.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  selector: 
+    matchLabels: {{- include "customer.labels" . | indent 6 }}
   template:
     metadata:
       labels:
         {{- include "customer.labels" . | indent 8 }}
-
     spec:
       containers:
       # Liberty Server Container
