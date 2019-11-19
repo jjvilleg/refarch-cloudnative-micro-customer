@@ -54,7 +54,7 @@ spec:
           number: {{ .Values.service.servicePort }}
     retries:
       attempts: 4
-      retryOn: 4xx,5xx
+      retryOn: 5xx
 
 ---
 
