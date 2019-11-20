@@ -99,15 +99,6 @@ istio:
       caCertificates: /etc/istio/ingressgateway-ca-certs/ca-chain.cert.pem
 
 ingress:
-  enabled: true
-  hostname: #orders.bluecompute.com
   path: /customer/rest
-  annotations:
-    ingress.bluemix.net/redirect-to-https: "True"
-  enableTLS: false 
-  TLS:
-  - secretName: orders.bluecompute.com
-    hosts:
-      - orders.bluecompute.com
 
 travis: false
