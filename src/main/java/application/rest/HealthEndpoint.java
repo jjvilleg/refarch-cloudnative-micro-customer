@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
 
 import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
@@ -17,17 +18,20 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 
 @Health
 @ApplicationScoped
-
 public class HealthEndpoint implements HealthCheck {
 
-	@Inject
-	Config config;
+	// @Inject
+	// Config config;
 
-	@ConfigProperty(name="auth_health")
-	private String auth_url;
+	// @Inject @ConfigProperty(name="auth_health")
+	// private String auth_url;
 
-	@ConfigProperty(name="application.rest.client.CouchDBClientService/mp-rest/url")
-    private String CouchDB_url;
+	// @Inject @ConfigProperty(name="application.rest.client.CouchDBClientService/mp-rest/url")
+	// private String CouchDB_url;
+	
+	private Config config = ConfigProvider.getConfig();
+	private String auth_url = config.getValue("auth_health", String.class);
+	private String CouchDB_url = config.getValue("application.rest.client.CouchDBClientService/mp-rest/url", String.class);
 
 	@Override
 	public HealthCheckResponse call() {

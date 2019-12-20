@@ -1,8 +1,8 @@
 <server description="Sample Liberty server">
 
   <featureManager>
-      <feature>microprofile-1.3</feature>
-      <feature>usr:opentracingZipkin-0.30</feature>
+      <feature>microprofile-3.0</feature>
+      <!-- <feature>usr:opentracingZipkin-0.31</feature>  -->
   </featureManager>
 
   <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
@@ -27,7 +27,7 @@
 
   <!-- for mpConfig / mpRestClient -->
   <variable name="application.rest.client.CouchDBClientService/mp-rest/url" value="http://${COUCHDB_HOST}:${COUCHDB_PORT}"/>
-
+  
   <!--Credentials necessary to authorize user-->
   <administrator-role>
     <user-access-id>${env.administratorRealm}</user-access-id>

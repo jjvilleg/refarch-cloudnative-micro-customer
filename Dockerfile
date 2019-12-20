@@ -1,4 +1,4 @@
-FROM websphere-liberty:18.0.0.4-webProfile8
+FROM websphere-liberty:19.0.0.9-microProfile3
 
 MAINTAINER IBM Java engineering at IBM Cloud
 
@@ -8,7 +8,11 @@ COPY /target/liberty/wlp/usr/extension /opt/ibm/wlp/usr/extension
 
 # To read LTPA keys
 RUN chown 1001:0 /opt/ibm/wlp/usr/servers/defaultServer/resources/security/ltpa.keys
+RUN chown 1001:0 /config/server.env
 USER 1001
+
+RUN echo "COUCHDB_HOST=$COUCHDB_HOST" >> /config/server.env
+RUN echo "COUCHDB_PORT=$COUCHDB_PORT" >> /config/server.env
 
 # Install required features if not present
 RUN installUtility install --acceptLicense defaultServer

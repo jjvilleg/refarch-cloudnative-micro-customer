@@ -24,7 +24,7 @@
         <packaging.type>usr</packaging.type>
         <groupId.liberty-runtime>com.ibm.websphere.appserver.runtime</groupId.liberty-runtime>
         <artifactId.liberty-runtime>wlp-webProfile8</artifactId.liberty-runtime>
-        <version.liberty-runtime>18.0.0.4</version.liberty-runtime>
+        <version.liberty-runtime>19.0.0.9</version.liberty-runtime>
     </properties>
 
     <dependencies>
@@ -179,7 +179,7 @@
                     <features>
                         <acceptLicense>true</acceptLicense>
                     </features>
-                    <looseApplication>false</looseApplication>
+                    <looseApplication>true</looseApplication>
                 </configuration>
                 <executions>
                     <execution>
